@@ -18,30 +18,29 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
-
-    @GetMapping(path = "/read")
+    @GetMapping
     public ResponseEntity<List<UsuarioRespostaDTO>> buscarTodosUsuarios() {
         return ResponseEntity.ok(usuarioService.buscarTodos());
     }
 
-    @GetMapping(path = "/read/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<UsuarioModel>> buscarUsuarioPorId(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     public ResponseEntity<UsuarioRespostaDTO> cadastrarUsuario(@Valid @RequestBody UsuarioDTO dto) {
         UsuarioModel usuario = usuarioService.cadastrar(dto.converterParaObjeto());
         return new ResponseEntity<>(UsuarioRespostaDTO.converterParaDTO(usuario), HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/update/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<UsuarioRespostaDTO> alterarUsuario(@RequestBody UsuarioModel usuarioModel, @PathVariable Long id) {
         UsuarioModel usuario = usuarioService.alterar(usuarioModel);
         return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario));
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarUsuario(@PathVariable Long id) {
         usuarioService.deletar(id);
         return ResponseEntity.noContent().build();
