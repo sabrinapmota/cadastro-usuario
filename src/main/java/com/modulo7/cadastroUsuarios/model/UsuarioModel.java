@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "usuarios")
 public class UsuarioModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(length = 20, nullable = false)
@@ -22,7 +22,7 @@ public class UsuarioModel {
     @Column(length = 12, nullable = false)
     private String login;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 255, nullable = false)
     private String senha;
 
     public UsuarioModel(String nome, String login, String senha) {

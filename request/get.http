@@ -1,0 +1,23 @@
+GET http://localhost:8080/usuarios http/1.1
+###
+ GET http://localhost:8080/usuarios/2 http/1.1
+###
+POST http://localhost:8080/usuarios http/1.1
+Content-Type: application/json
+
+{
+"nome": "Sabrina",
+"login": "sabrina",
+"senha": "12345678"
+}
+###
+PUT         http://localhost:8080/usuarios/1 http/1.1
+Content-Type: application/json
+
+{
+"nome": "Francisco",
+"login": "francisco",
+"senha": "987654321"
+}
+###
+DELETE http://localhost:8080/usuarios/3 http/1.1

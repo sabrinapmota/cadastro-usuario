@@ -18,6 +18,7 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
     @GetMapping
     public ResponseEntity<List<UsuarioRespostaDTO>> buscarTodosUsuarios() {
         return ResponseEntity.ok(usuarioService.buscarTodos());
@@ -35,8 +36,8 @@ public class UsuarioController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<UsuarioRespostaDTO> alterarUsuario(@RequestBody UsuarioModel usuarioModel, @PathVariable Long id) {
-        UsuarioModel usuario = usuarioService.alterar(usuarioModel);
+    public ResponseEntity<UsuarioRespostaDTO> alterarUsuario(@RequestBody UsuarioDTO novoUsuario, @PathVariable Long id) {
+        UsuarioModel usuario = usuarioService.alterar(id, novoUsuario);
         return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario));
     }
 

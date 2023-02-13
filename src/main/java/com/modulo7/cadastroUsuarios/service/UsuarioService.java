@@ -34,9 +34,16 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioModel);
     }
 
-    public UsuarioModel alterar(UsuarioModel usuarioModel) {
-        return usuarioRepository.save(usuarioModel);
+    public UsuarioModel alterar(long id, UsuarioDTO novoUsuario) {
+        UsuarioModel antigoUsuario = usuarioRepository.getById(id);
+        UsuarioModel usuarioASalvar = new UsuarioModel();
+        usuarioASalvar.setId(antigoUsuario.getId());
+        usuarioASalvar.setNome(novoUsuario.getNome());
+        usuarioASalvar.setLogin(novoUsuario.getLogin());
+        usuarioASalvar.setSenha(passwordEncoder().encode(novoUsuario.getSenha()));
+        return usuarioRepository.save(usuarioASalvar);
     }
+
 
     public void deletar(Long id) {
         usuarioRepository.deleteById(id);

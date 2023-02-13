@@ -19,7 +19,7 @@ public class UsuarioDTO {
     @Length(min = 4, max = 12, message = "Login deve conter de {min} a {max} caracteres.")
     private String login;
     @NotBlank(message = "Senha deve ser preenchida.")
-    @Length(min = 8, max = 20, message = "Senha deve conter de {min} a {max} caracteres.")
+    @Length(min = 8, max = 255, message = "Senha deve conter de {min} a {max} caracteres.")
     private String senha;
 
     public UsuarioModel converterParaObjeto() {
