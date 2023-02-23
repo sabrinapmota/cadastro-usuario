@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class UsuarioDTO {
-    @NotBlank(message = "Nome do usuário deve ser preenchido.")
+    @NotBlank   (message = "Nome do usuário deve ser preenchido.")
     @Length(min = 4, max = 20, message = "Nome do usuário deve conter de {min} a {max} caracteres.")
     private String nome;
     @NotBlank(message = "Login deve ser preenchido.")

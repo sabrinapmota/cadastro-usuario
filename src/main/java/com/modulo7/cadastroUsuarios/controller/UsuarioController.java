@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -29,7 +28,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
-    @PostMapping
+    @PostMapping(path = "/usuarios/create")
     public ResponseEntity<UsuarioRespostaDTO> cadastrarUsuario(@Valid @RequestBody UsuarioDTO dto) {
         UsuarioModel usuario = usuarioService.cadastrar(dto.converterParaObjeto());
         return new ResponseEntity<>(UsuarioRespostaDTO.converterParaDTO(usuario), HttpStatus.CREATED);
