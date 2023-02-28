@@ -25,7 +25,7 @@ public class UsuarioController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<UsuarioModel>> buscarUsuarioPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(usuarioService.buscarPorId(id));
+        return ResponseEntity.ok(usuarioService.ttbuscarPorId(id));
     }
 
     @PostMapping(path = "/usuarios/create")

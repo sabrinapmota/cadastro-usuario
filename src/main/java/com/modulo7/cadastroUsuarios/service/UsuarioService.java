@@ -25,7 +25,7 @@ public class UsuarioService {
         return UsuarioRespostaDTO.converterLista(usuarios);
     }
 
-    public Optional<UsuarioModel> buscarPorId(Long id) {
+    public Optional<UsuarioModel> ttbuscarPorId(Long id) {
         return usuarioRepository.findById(id);
     }
 
