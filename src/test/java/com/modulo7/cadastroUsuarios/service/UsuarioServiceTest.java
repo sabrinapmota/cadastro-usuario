@@ -4,20 +4,19 @@ import com.modulo7.cadastroUsuarios.DTO.UsuarioDTO;
 import com.modulo7.cadastroUsuarios.DTO.UsuarioRespostaDTO;
 import com.modulo7.cadastroUsuarios.model.UsuarioModel;
 import com.modulo7.cadastroUsuarios.repository.UsuarioRepository;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Any;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static java.util.Optional.of;
 
 
 class UsuarioServiceTest {
@@ -75,7 +74,7 @@ class UsuarioServiceTest {
         usuario.setSenha("12345678");
 
         Mockito.when(repository.findById(1L))
-                .thenReturn(Optional.of(usuario));
+                .thenReturn(of(usuario));
 
         Optional<UsuarioModel> resposta = service.ttbuscarPorId(1L);
 
@@ -90,8 +89,7 @@ class UsuarioServiceTest {
         usuarioAntigo.setLogin("sabrina");
         usuarioAntigo.setSenha("12345678");
 
-        Mockito.when(repository.findById(1L))
-                .thenReturn(Optional.of(usuarioAntigo));
+        Mockito.when(repository.getById(1L)).thenReturn(usuarioAntigo);
 
         UsuarioModel usuarioRespondido = new UsuarioModel();
         usuarioRespondido.setId(1L);
@@ -99,13 +97,23 @@ class UsuarioServiceTest {
         usuarioRespondido.setLogin("sabrinap");
         usuarioRespondido.setSenha("12345679");
 
-        Mockito.when(repository.save(Any()))
-                .thenReturn(usuarioRespondido);
+Mockito.when(repository.save(Mockito.any(UsuarioModel.class)))
+        .thenReturn(usuarioRespondido);
 
-        UsuarioDTO usuarioEnviado = new UsuarioDTO()
+        UsuarioDTO usuarioEnviado = new UsuarioDTO();
+        usuarioEnviado.setLogin("sabrinap");
+        usuarioEnviado.setSenha("12345679");
 
+        UsuarioModel usuarioFinal = service.alterar(1L, usuarioEnviado);
 
-        UsuarioModel usuarioFinal = service.alterar()
+        Assertions.assertEquals("Sabrina Porto", usuarioFinal.getNome());
+    }
+
+    @Test
+    public void deveriaDeletarPorId() {
+        service.deletar(1L);
+
+        Mockito.verify(repository, Mockito.times(1)).deleteById(1L);
     }
 
 }
