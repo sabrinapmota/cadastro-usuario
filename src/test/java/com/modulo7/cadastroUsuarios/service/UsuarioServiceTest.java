@@ -97,8 +97,8 @@ class UsuarioServiceTest {
         usuarioRespondido.setLogin("sabrinap");
         usuarioRespondido.setSenha("12345679");
 
-Mockito.when(repository.save(Mockito.any(UsuarioModel.class)))
-        .thenReturn(usuarioRespondido);
+        Mockito.when(repository.save(Mockito.any(UsuarioModel.class)))
+                .thenReturn(usuarioRespondido);
 
         UsuarioDTO usuarioEnviado = new UsuarioDTO();
         usuarioEnviado.setLogin("sabrinap");

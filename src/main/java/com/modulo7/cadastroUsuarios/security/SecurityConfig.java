@@ -11,12 +11,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeHttpRequests().anyRequest().authenticated()
-                .and().httpBasic();
+        http.csrf()
+                .disable()
+                .authorizeHttpRequests()
+                .antMatchers("usuarios/create").permitAll().and().httpBasic()
 
-            //.authorizeHttpRequests().antMatchers("/usuarios/create")
-        //.permitAll().and().httpBasic();
+
     }
-}
