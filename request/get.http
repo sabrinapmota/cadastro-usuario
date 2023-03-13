@@ -1,24 +1,30 @@
-n GET http://localhost:8080/usuarios http/1.1
+GET http://localhost:8080/usuarios/get http/1.1
+Authorization: Basic sabrina 1234
 ###
- GET http://localhost:8080/usuarios/2 http/1.1
+GET http://localhost:8080/usuarios/get/1 http/1.1
+Authorization: Basic sabrina 1234
 ###
-POST http://localhost:8080/usuarios/create http/1.1
+POST  http://localhost:8080/usuarios/create http/1.1
 Content-Type: application/json
-Authorization: Basic user 45c0eca3-ced9-4da1-b991-9d6af84e9baa
+Authorization:  Basic luana 4321
 
 {
-"nome": "Sabrina",
-"login": "sabrina",
-"senha": "12345678"
+    "nome": "Camila",
+    "login": "camila",
+    "senha": " 12345678"
 }
 ###
-PUT         http://localhost:8080/usuarios/1 http/1.1
+ DELETE  http://localhost:8080/usuarios/delete/2 http/1.1
+###
+PUT         http://localhost:8080/usuarios/put/1 http/1.1
 Content-Type: application/json
+Authorization: Basic luana 4321
 
 {
 "nome": "Francisco",
 "login": "francisco",
-"senha": "987654321"
+"senha": "12345678"
 }
 ###
-DELETE http://localhost:8080/usuarios/3 http/1.1
+DELETE http://localhost:8080/usuarios/delete/13 http/1.1
+Authorization: Basic sabrina 1234

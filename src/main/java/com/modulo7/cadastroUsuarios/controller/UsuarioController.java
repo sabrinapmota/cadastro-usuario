@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +20,14 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
+    @GetMapping("/usuarios/get")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<List<UsuarioRespostaDTO>> buscarTodosUsuarios() {
         return ResponseEntity.ok(usuarioService.buscarTodos());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/usuarios/get/{id}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<Optional<UsuarioModel>> buscarUsuarioPorId(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.ttbuscarPorId(id));
     }
@@ -34,13 +38,14 @@ public class UsuarioController {
         return new ResponseEntity<>(UsuarioRespostaDTO.converterParaDTO(usuario), HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/usuarios/put/{id}")
     public ResponseEntity<UsuarioRespostaDTO> alterarUsuario(@RequestBody UsuarioDTO novoUsuario, @PathVariable Long id) {
         UsuarioModel usuario = usuarioService.alterar(id, novoUsuario);
         return ResponseEntity.ok(UsuarioRespostaDTO.converterParaDTO(usuario));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/usuarios/delete/{id}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> deletarUsuario(@PathVariable Long id) {
         usuarioService.deletar(id);
         return ResponseEntity.noContent().build();
